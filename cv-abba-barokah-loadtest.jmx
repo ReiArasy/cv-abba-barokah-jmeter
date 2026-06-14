@@ -96,7 +96,7 @@
       <hashTree/>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Module 1: Dashboard Load" enabled="true">
         <intProp name="ThreadGroup.num_threads">5</intProp>
-        <intProp name="ThreadGroup.ramp_time">10</intProp>
+        <intProp name="ThreadGroup.ramp_time">25</intProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
@@ -131,7 +131,7 @@
             <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract Login Snapshot" enabled="true">
               <stringProp name="RegexExtractor.useHeaders">false</stringProp>
               <stringProp name="RegexExtractor.refname">login_snapshot_raw</stringProp>
-              <stringProp name="RegexExtractor.regex">wire:snapshot=&quot;([^&quot;]*Login[^&quot;]*)&quot;</stringProp>
+              <stringProp name="RegexExtractor.regex">wire:snapshot=&quot;([^&quot;]*app\.filament\.auth\.login[^&quot;]*)&quot;</stringProp>
               <stringProp name="RegexExtractor.template">$1$</stringProp>
               <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
               <stringProp name="RegexExtractor.match_number">1</stringProp>
@@ -197,6 +197,10 @@ if (rawSnapshot != null) {
                   <stringProp name="Header.name">X-CSRF-TOKEN</stringProp>
                   <stringProp name="Header.value">${csrf_token}</stringProp>
                 </elementProp>
+                <elementProp name="X-Livewire" elementType="Header">
+                  <stringProp name="Header.name">X-Livewire</stringProp>
+                  <stringProp name="Header.value">true</stringProp>
+                </elementProp>
               </collectionProp>
             </HeaderManager>
             <hashTree/>
@@ -216,7 +220,7 @@ if (rawSnapshot != null) {
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Module 2: Product Search" enabled="true">
         <intProp name="ThreadGroup.num_threads">3</intProp>
-        <intProp name="ThreadGroup.ramp_time">6</intProp>
+        <intProp name="ThreadGroup.ramp_time">15</intProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
@@ -251,7 +255,7 @@ if (rawSnapshot != null) {
             <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract Login Snapshot" enabled="true">
               <stringProp name="RegexExtractor.useHeaders">false</stringProp>
               <stringProp name="RegexExtractor.refname">login_snapshot_raw</stringProp>
-              <stringProp name="RegexExtractor.regex">wire:snapshot=&quot;([^&quot;]*Login[^&quot;]*)&quot;</stringProp>
+              <stringProp name="RegexExtractor.regex">wire:snapshot=&quot;([^&quot;]*app\.filament\.auth\.login[^&quot;]*)&quot;</stringProp>
               <stringProp name="RegexExtractor.template">$1$</stringProp>
               <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
               <stringProp name="RegexExtractor.match_number">1</stringProp>
@@ -317,6 +321,10 @@ if (rawSnapshot != null) {
                   <stringProp name="Header.name">X-CSRF-TOKEN</stringProp>
                   <stringProp name="Header.value">${csrf_token}</stringProp>
                 </elementProp>
+                <elementProp name="X-Livewire" elementType="Header">
+                  <stringProp name="Header.name">X-Livewire</stringProp>
+                  <stringProp name="Header.value">true</stringProp>
+                </elementProp>
               </collectionProp>
             </HeaderManager>
             <hashTree/>
@@ -333,10 +341,20 @@ if (rawSnapshot != null) {
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract CSRF Token" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">csrf_token</stringProp>
+            <stringProp name="RegexExtractor.regex">name=&quot;csrf-token&quot;\s+content=&quot;([^&quot;]+)&quot;</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
+            <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+          </RegexExtractor>
+          <hashTree/>
           <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract Product List Snapshot" enabled="true">
             <stringProp name="RegexExtractor.useHeaders">false</stringProp>
             <stringProp name="RegexExtractor.refname">product_list_snapshot_raw</stringProp>
-            <stringProp name="RegexExtractor.regex">wire:snapshot=&quot;([^&quot;]*ListProducts[^&quot;]*)&quot;</stringProp>
+            <stringProp name="RegexExtractor.regex">wire:snapshot=&quot;([^&quot;]*product-resource\.pages\.list-products[^&quot;]*)&quot;</stringProp>
             <stringProp name="RegexExtractor.template">$1$</stringProp>
             <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
             <stringProp name="RegexExtractor.match_number">1</stringProp>
@@ -395,6 +413,10 @@ if (rawSnapshot != null) {
                 <stringProp name="Header.name">X-CSRF-TOKEN</stringProp>
                 <stringProp name="Header.value">${csrf_token}</stringProp>
               </elementProp>
+              <elementProp name="X-Livewire" elementType="Header">
+                <stringProp name="Header.name">X-Livewire</stringProp>
+                <stringProp name="Header.value">true</stringProp>
+              </elementProp>
             </collectionProp>
           </HeaderManager>
           <hashTree/>
@@ -402,7 +424,7 @@ if (rawSnapshot != null) {
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Module 3: Order Management" enabled="true">
         <intProp name="ThreadGroup.num_threads">4</intProp>
-        <intProp name="ThreadGroup.ramp_time">8</intProp>
+        <intProp name="ThreadGroup.ramp_time">20</intProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
@@ -437,7 +459,7 @@ if (rawSnapshot != null) {
             <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract Login Snapshot" enabled="true">
               <stringProp name="RegexExtractor.useHeaders">false</stringProp>
               <stringProp name="RegexExtractor.refname">login_snapshot_raw</stringProp>
-              <stringProp name="RegexExtractor.regex">wire:snapshot=&quot;([^&quot;]*Login[^&quot;]*)&quot;</stringProp>
+              <stringProp name="RegexExtractor.regex">wire:snapshot=&quot;([^&quot;]*app\.filament\.auth\.login[^&quot;]*)&quot;</stringProp>
               <stringProp name="RegexExtractor.template">$1$</stringProp>
               <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
               <stringProp name="RegexExtractor.match_number">1</stringProp>
@@ -503,6 +525,10 @@ if (rawSnapshot != null) {
                   <stringProp name="Header.name">X-CSRF-TOKEN</stringProp>
                   <stringProp name="Header.value">${csrf_token}</stringProp>
                 </elementProp>
+                <elementProp name="X-Livewire" elementType="Header">
+                  <stringProp name="Header.name">X-Livewire</stringProp>
+                  <stringProp name="Header.value">true</stringProp>
+                </elementProp>
               </collectionProp>
             </HeaderManager>
             <hashTree/>
@@ -522,7 +548,7 @@ if (rawSnapshot != null) {
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Module 4: Category Creation" enabled="true">
         <intProp name="ThreadGroup.num_threads">2</intProp>
-        <intProp name="ThreadGroup.ramp_time">4</intProp>
+        <intProp name="ThreadGroup.ramp_time">10</intProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
@@ -557,7 +583,7 @@ if (rawSnapshot != null) {
             <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract Login Snapshot" enabled="true">
               <stringProp name="RegexExtractor.useHeaders">false</stringProp>
               <stringProp name="RegexExtractor.refname">login_snapshot_raw</stringProp>
-              <stringProp name="RegexExtractor.regex">wire:snapshot=&quot;([^&quot;]*Login[^&quot;]*)&quot;</stringProp>
+              <stringProp name="RegexExtractor.regex">wire:snapshot=&quot;([^&quot;]*app\.filament\.auth\.login[^&quot;]*)&quot;</stringProp>
               <stringProp name="RegexExtractor.template">$1$</stringProp>
               <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
               <stringProp name="RegexExtractor.match_number">1</stringProp>
@@ -623,6 +649,10 @@ if (rawSnapshot != null) {
                   <stringProp name="Header.name">X-CSRF-TOKEN</stringProp>
                   <stringProp name="Header.value">${csrf_token}</stringProp>
                 </elementProp>
+                <elementProp name="X-Livewire" elementType="Header">
+                  <stringProp name="Header.name">X-Livewire</stringProp>
+                  <stringProp name="Header.value">true</stringProp>
+                </elementProp>
               </collectionProp>
             </HeaderManager>
             <hashTree/>
@@ -639,10 +669,20 @@ if (rawSnapshot != null) {
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract CSRF Token" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">csrf_token</stringProp>
+            <stringProp name="RegexExtractor.regex">name=&quot;csrf-token&quot;\s+content=&quot;([^&quot;]+)&quot;</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
+            <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
+          </RegexExtractor>
+          <hashTree/>
           <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract Create Category Snapshot" enabled="true">
             <stringProp name="RegexExtractor.useHeaders">false</stringProp>
             <stringProp name="RegexExtractor.refname">category_create_snapshot_raw</stringProp>
-            <stringProp name="RegexExtractor.regex">wire:snapshot=&quot;([^&quot;]*CreateCategory[^&quot;]*)&quot;</stringProp>
+            <stringProp name="RegexExtractor.regex">wire:snapshot=&quot;([^&quot;]*category-resource\.pages\.create-category[^&quot;]*)&quot;</stringProp>
             <stringProp name="RegexExtractor.template">$1$</stringProp>
             <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
             <stringProp name="RegexExtractor.match_number">1</stringProp>
@@ -707,6 +747,10 @@ if (rawSnapshot != null) {
               <elementProp name="X-CSRF-TOKEN" elementType="Header">
                 <stringProp name="Header.name">X-CSRF-TOKEN</stringProp>
                 <stringProp name="Header.value">${csrf_token}</stringProp>
+              </elementProp>
+              <elementProp name="X-Livewire" elementType="Header">
+                <stringProp name="Header.name">X-Livewire</stringProp>
+                <stringProp name="Header.value">true</stringProp>
               </elementProp>
             </collectionProp>
           </HeaderManager>
