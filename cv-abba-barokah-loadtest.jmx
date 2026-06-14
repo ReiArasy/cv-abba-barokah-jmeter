@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
   <hashTree>
-    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="CV Abba Barokah Load Test Plan" enabled="true">
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="CV Abba Barokah Load Test Plan">
       <stringProp name="TestPlan.comments">Rencana Pengujian Beban E-Commerce CV Abba Barokah (Laravel 11 &amp; Filament 3)</stringProp>
-      <boolProp name="TestPlan.functional_mode">false</boolProp>
-      <boolProp name="TestPlan.tearDownOnShutdown">true</boolProp>
-      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
-      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
         <collectionProp name="Arguments.arguments">
           <elementProp name="PROTOCOL" elementType="Argument">
             <stringProp name="Argument.name">PROTOCOL</stringProp>
@@ -30,30 +27,31 @@
           </elementProp>
           <elementProp name="ADMIN_EMAIL" elementType="Argument">
             <stringProp name="Argument.name">ADMIN_EMAIL</stringProp>
-            <stringProp name="Argument.value">admin@example.com</stringProp>
+            <stringProp name="Argument.value">abba@gmail.com</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="ADMIN_PASSWORD" elementType="Argument">
             <stringProp name="Argument.name">ADMIN_PASSWORD</stringProp>
-            <stringProp name="Argument.value">password</stringProp>
+            <stringProp name="Argument.value">abba123</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
       </elementProp>
-      <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
     <hashTree>
-      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults">
         <stringProp name="HTTPSampler.domain">${HOST}</stringProp>
         <stringProp name="HTTPSampler.port">${PORT}</stringProp>
         <stringProp name="HTTPSampler.protocol">${PROTOCOL}</stringProp>
-        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
           <collectionProp name="Arguments.arguments"/>
         </elementProp>
         <stringProp name="HTTPSampler.implementation">HttpClient4</stringProp>
+        <stringProp name="HTTPSampler.connect_timeout">15000</stringProp>
+        <stringProp name="HTTPSampler.response_timeout">15000</stringProp>
       </ConfigTestElement>
       <hashTree/>
-      <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
+      <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager">
         <collectionProp name="CookieManager.cookies"/>
         <boolProp name="CookieManager.clearEachIteration">false</boolProp>
         <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
@@ -78,51 +76,46 @@
       <hashTree/>
       <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert HTTP 200 OK or 302 Redirect" enabled="true">
         <collectionProp name="Asserion.test_strings">
-          <stringProp name="49586">200</stringProp>
-          <stringProp name="50548">302</stringProp>
+          <stringProp name="1205315842">200|302</stringProp>
         </collectionProp>
         <stringProp name="Assertion.custom_message">Respons Server bukan HTTP 200 OK atau 302 Redirect</stringProp>
         <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
         <boolProp name="Assertion.assume_success">false</boolProp>
-        <intProp name="Assertion.test_type">16</intProp>
+        <intProp name="Assertion.test_type">2</intProp>
       </ResponseAssertion>
       <hashTree/>
       <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert No Livewire Error" enabled="true">
         <collectionProp name="Asserion.test_strings">
-          <stringProp name="1651817088">Livewire Error</stringProp>
-          <stringProp name="96784904">Error</stringProp>
+          <stringProp name="-442518375">Livewire Error</stringProp>
         </collectionProp>
-        <stringProp name="Assertion.custom_message">Terdeteksi error Livewire atau Exception server pada respons body</stringProp>
+        <stringProp name="Assertion.custom_message">Terdeteksi error Livewire pada respons body</stringProp>
         <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
         <boolProp name="Assertion.assume_success">false</boolProp>
         <intProp name="Assertion.test_type">6</intProp>
       </ResponseAssertion>
       <hashTree/>
-
-      <!-- MODULE 1: DASHBOARD LOAD (Read-Heavy) -->
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Module 1: Dashboard Load" enabled="true">
+        <intProp name="ThreadGroup.num_threads">50</intProp>
+        <intProp name="ThreadGroup.ramp_time">10</intProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
           <stringProp name="LoopController.loops">5</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">50</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">10</stringProp>
-        <boolProp name="ThreadGroup.delayedStart">false</boolProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
-        <!-- AUTHENTICATION ONCE ONLY -->
-        <OnceOnlyController guiclass="OnceOnlyControllerGui" testclass="OnceOnlyController" testname="Login Once Only" enabled="true"/>
+        <OnceOnlyController guiclass="OnceOnlyControllerGui" testclass="OnceOnlyController" testname="Login Once Only"/>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="M1: GET Login Page" enabled="true">
             <stringProp name="HTTPSampler.path">/admin/login</stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
             <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract CSRF Token" enabled="true">
@@ -132,6 +125,7 @@
               <stringProp name="RegexExtractor.template">$1$</stringProp>
               <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
               <stringProp name="RegexExtractor.match_number">1</stringProp>
+              <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
             </RegexExtractor>
             <hashTree/>
             <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract Login Snapshot" enabled="true">
@@ -141,6 +135,7 @@
               <stringProp name="RegexExtractor.template">$1$</stringProp>
               <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
               <stringProp name="RegexExtractor.match_number">1</stringProp>
+              <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
             </RegexExtractor>
             <hashTree/>
             <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Clean Snapshot Groovy" enabled="true">
@@ -158,38 +153,38 @@ if (rawSnapshot != null) {
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="M1: POST Livewire Login" enabled="true">
+            <stringProp name="HTTPSampler.path">/livewire/update</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{
-  &quot;_token&quot;: &quot;${csrf_token}&quot;,
-  &quot;components&quot;: [
-    {
-      &quot;snapshot&quot;: &quot;${login_snapshot}&quot;,
-      &quot;updates&quot;: {
-        &quot;data.email&quot;: &quot;${ADMIN_EMAIL}&quot;,
-        &quot;data.password&quot;: &quot;${ADMIN_PASSWORD}&quot;
-      },
-      &quot;calls&quot;: [
-        {
-          &quot;path&quot;: &quot;&quot;,
-          &quot;method&quot;: &quot;authenticate&quot;,
-          &quot;params&quot;: []
-        }
-      ]
-    }
-  ]
+                  <stringProp name="Argument.value">{&#xd;
+  &quot;_token&quot;: &quot;${csrf_token}&quot;,&#xd;
+  &quot;components&quot;: [&#xd;
+    {&#xd;
+      &quot;snapshot&quot;: &quot;${login_snapshot}&quot;,&#xd;
+      &quot;updates&quot;: {&#xd;
+        &quot;data.email&quot;: &quot;${ADMIN_EMAIL}&quot;,&#xd;
+        &quot;data.password&quot;: &quot;${ADMIN_PASSWORD}&quot;&#xd;
+      },&#xd;
+      &quot;calls&quot;: [&#xd;
+        {&#xd;
+          &quot;path&quot;: &quot;&quot;,&#xd;
+          &quot;method&quot;: &quot;authenticate&quot;,&#xd;
+          &quot;params&quot;: []&#xd;
+        }&#xd;
+      ]&#xd;
+    }&#xd;
+  ]&#xd;
 }</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
             </elementProp>
-            <stringProp name="HTTPSampler.path">/livewire/update</stringProp>
-            <stringProp name="HTTPSampler.method">POST</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           </HTTPSamplerProxy>
           <hashTree>
             <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Livewire Headers" enabled="true">
@@ -207,41 +202,40 @@ if (rawSnapshot != null) {
             <hashTree/>
           </hashTree>
         </hashTree>
-
-        <!-- DASHBOARD REQUEST -->
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Dashboard Page" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Dashboard Page">
           <stringProp name="HTTPSampler.path">/admin/dashboard</stringProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
       </hashTree>
-
-      <!-- MODULE 2: PRODUCT MANAGEMENT - LIVEWIRE SEARCH (Read & Filter) -->
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Module 2: Product Search" enabled="true">
+        <intProp name="ThreadGroup.num_threads">30</intProp>
+        <intProp name="ThreadGroup.ramp_time">5</intProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
           <stringProp name="LoopController.loops">1</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">30</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">5</stringProp>
-        <boolProp name="ThreadGroup.delayedStart">false</boolProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
-        <!-- AUTHENTICATION ONCE ONLY -->
         <OnceOnlyController guiclass="OnceOnlyControllerGui" testclass="OnceOnlyController" testname="Login Once Only" enabled="true"/>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="M2: GET Login Page" enabled="true">
             <stringProp name="HTTPSampler.path">/admin/login</stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
             <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract CSRF Token" enabled="true">
@@ -251,6 +245,7 @@ if (rawSnapshot != null) {
               <stringProp name="RegexExtractor.template">$1$</stringProp>
               <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
               <stringProp name="RegexExtractor.match_number">1</stringProp>
+              <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
             </RegexExtractor>
             <hashTree/>
             <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract Login Snapshot" enabled="true">
@@ -260,6 +255,7 @@ if (rawSnapshot != null) {
               <stringProp name="RegexExtractor.template">$1$</stringProp>
               <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
               <stringProp name="RegexExtractor.match_number">1</stringProp>
+              <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
             </RegexExtractor>
             <hashTree/>
             <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Clean Snapshot Groovy" enabled="true">
@@ -277,38 +273,38 @@ if (rawSnapshot != null) {
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="M2: POST Livewire Login" enabled="true">
+            <stringProp name="HTTPSampler.path">/livewire/update</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{
-  &quot;_token&quot;: &quot;${csrf_token}&quot;,
-  &quot;components&quot;: [
-    {
-      &quot;snapshot&quot;: &quot;${login_snapshot}&quot;,
-      &quot;updates&quot;: {
-        &quot;data.email&quot;: &quot;${ADMIN_EMAIL}&quot;,
-        &quot;data.password&quot;: &quot;${ADMIN_PASSWORD}&quot;
-      },
-      &quot;calls&quot;: [
-        {
-          &quot;path&quot;: &quot;&quot;,
-          &quot;method&quot;: &quot;authenticate&quot;,
-          &quot;params&quot;: []
-        }
-      ]
-    }
-  ]
+                  <stringProp name="Argument.value">{&#xd;
+  &quot;_token&quot;: &quot;${csrf_token}&quot;,&#xd;
+  &quot;components&quot;: [&#xd;
+    {&#xd;
+      &quot;snapshot&quot;: &quot;${login_snapshot}&quot;,&#xd;
+      &quot;updates&quot;: {&#xd;
+        &quot;data.email&quot;: &quot;${ADMIN_EMAIL}&quot;,&#xd;
+        &quot;data.password&quot;: &quot;${ADMIN_PASSWORD}&quot;&#xd;
+      },&#xd;
+      &quot;calls&quot;: [&#xd;
+        {&#xd;
+          &quot;path&quot;: &quot;&quot;,&#xd;
+          &quot;method&quot;: &quot;authenticate&quot;,&#xd;
+          &quot;params&quot;: []&#xd;
+        }&#xd;
+      ]&#xd;
+    }&#xd;
+  ]&#xd;
 }</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
             </elementProp>
-            <stringProp name="HTTPSampler.path">/livewire/update</stringProp>
-            <stringProp name="HTTPSampler.method">POST</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           </HTTPSamplerProxy>
           <hashTree>
             <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Livewire Headers" enabled="true">
@@ -326,13 +322,15 @@ if (rawSnapshot != null) {
             <hashTree/>
           </hashTree>
         </hashTree>
-
-        <!-- PRODUCT LIST INITIAL LOAD -->
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Product List Page" enabled="true">
           <stringProp name="HTTPSampler.path">/admin/products</stringProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
         </HTTPSamplerProxy>
         <hashTree>
           <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract Product List Snapshot" enabled="true">
@@ -342,6 +340,7 @@ if (rawSnapshot != null) {
             <stringProp name="RegexExtractor.template">$1$</stringProp>
             <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
             <stringProp name="RegexExtractor.match_number">1</stringProp>
+            <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
           </RegexExtractor>
           <hashTree/>
           <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Clean Product Snapshot Groovy" enabled="true">
@@ -358,34 +357,32 @@ if (rawSnapshot != null) {
           </JSR223PostProcessor>
           <hashTree/>
         </hashTree>
-
-        <!-- LIVEWIRE PRODUCT SEARCH -->
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Livewire Product Search" enabled="true">
+          <stringProp name="HTTPSampler.path">/livewire/update</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">{
-  &quot;_token&quot;: &quot;${csrf_token}&quot;,
-  &quot;components&quot;: [
-    {
-      &quot;snapshot&quot;: &quot;${product_list_snapshot}&quot;,
-      &quot;updates&quot;: {
-        &quot;tableSearch&quot;: &quot;Sepatu&quot;
-      },
-      &quot;calls&quot;: []
-    }
-  ]
+                <stringProp name="Argument.value">{&#xd;
+  &quot;_token&quot;: &quot;${csrf_token}&quot;,&#xd;
+  &quot;components&quot;: [&#xd;
+    {&#xd;
+      &quot;snapshot&quot;: &quot;${product_list_snapshot}&quot;,&#xd;
+      &quot;updates&quot;: {&#xd;
+        &quot;tableSearch&quot;: &quot;Sepatu&quot;&#xd;
+      },&#xd;
+      &quot;calls&quot;: []&#xd;
+    }&#xd;
+  ]&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
           </elementProp>
-          <stringProp name="HTTPSampler.path">/livewire/update</stringProp>
-          <stringProp name="HTTPSampler.method">POST</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
         </HTTPSamplerProxy>
         <hashTree>
           <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Livewire Headers" enabled="true">
@@ -403,31 +400,28 @@ if (rawSnapshot != null) {
           <hashTree/>
         </hashTree>
       </hashTree>
-
-      <!-- MODULE 3: ORDER MANAGEMENT - LARGE DATA RENDERING (Read) -->
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Module 3: Order Management" enabled="true">
+        <intProp name="ThreadGroup.num_threads">40</intProp>
+        <intProp name="ThreadGroup.ramp_time">10</intProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
           <stringProp name="LoopController.loops">1</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">40</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">10</stringProp>
-        <boolProp name="ThreadGroup.delayedStart">false</boolProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
-        <!-- AUTHENTICATION ONCE ONLY -->
         <OnceOnlyController guiclass="OnceOnlyControllerGui" testclass="OnceOnlyController" testname="Login Once Only" enabled="true"/>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="M3: GET Login Page" enabled="true">
             <stringProp name="HTTPSampler.path">/admin/login</stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
             <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract CSRF Token" enabled="true">
@@ -437,6 +431,7 @@ if (rawSnapshot != null) {
               <stringProp name="RegexExtractor.template">$1$</stringProp>
               <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
               <stringProp name="RegexExtractor.match_number">1</stringProp>
+              <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
             </RegexExtractor>
             <hashTree/>
             <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract Login Snapshot" enabled="true">
@@ -446,6 +441,7 @@ if (rawSnapshot != null) {
               <stringProp name="RegexExtractor.template">$1$</stringProp>
               <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
               <stringProp name="RegexExtractor.match_number">1</stringProp>
+              <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
             </RegexExtractor>
             <hashTree/>
             <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Clean Snapshot Groovy" enabled="true">
@@ -463,38 +459,38 @@ if (rawSnapshot != null) {
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="M3: POST Livewire Login" enabled="true">
+            <stringProp name="HTTPSampler.path">/livewire/update</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{
-  &quot;_token&quot;: &quot;${csrf_token}&quot;,
-  &quot;components&quot;: [
-    {
-      &quot;snapshot&quot;: &quot;${login_snapshot}&quot;,
-      &quot;updates&quot;: {
-        &quot;data.email&quot;: &quot;${ADMIN_EMAIL}&quot;,
-        &quot;data.password&quot;: &quot;${ADMIN_PASSWORD}&quot;
-      },
-      &quot;calls&quot;: [
-        {
-          &quot;path&quot;: &quot;&quot;,
-          &quot;method&quot;: &quot;authenticate&quot;,
-          &quot;params&quot;: []
-        }
-      ]
-    }
-  ]
+                  <stringProp name="Argument.value">{&#xd;
+  &quot;_token&quot;: &quot;${csrf_token}&quot;,&#xd;
+  &quot;components&quot;: [&#xd;
+    {&#xd;
+      &quot;snapshot&quot;: &quot;${login_snapshot}&quot;,&#xd;
+      &quot;updates&quot;: {&#xd;
+        &quot;data.email&quot;: &quot;${ADMIN_EMAIL}&quot;,&#xd;
+        &quot;data.password&quot;: &quot;${ADMIN_PASSWORD}&quot;&#xd;
+      },&#xd;
+      &quot;calls&quot;: [&#xd;
+        {&#xd;
+          &quot;path&quot;: &quot;&quot;,&#xd;
+          &quot;method&quot;: &quot;authenticate&quot;,&#xd;
+          &quot;params&quot;: []&#xd;
+        }&#xd;
+      ]&#xd;
+    }&#xd;
+  ]&#xd;
 }</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
             </elementProp>
-            <stringProp name="HTTPSampler.path">/livewire/update</stringProp>
-            <stringProp name="HTTPSampler.method">POST</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           </HTTPSamplerProxy>
           <hashTree>
             <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Livewire Headers" enabled="true">
@@ -512,41 +508,40 @@ if (rawSnapshot != null) {
             <hashTree/>
           </hashTree>
         </hashTree>
-
-        <!-- ORDER RENDERING -->
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Orders Page" enabled="true">
           <stringProp name="HTTPSampler.path">/admin/orders</stringProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
         </HTTPSamplerProxy>
         <hashTree/>
       </hashTree>
-
-      <!-- MODULE 4: CATEGORY CREATION (Write/Insert Testing) -->
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Module 4: Category Creation" enabled="true">
+        <intProp name="ThreadGroup.num_threads">20</intProp>
+        <intProp name="ThreadGroup.ramp_time">5</intProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
-        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
           <stringProp name="LoopController.loops">1</stringProp>
           <boolProp name="LoopController.continue_forever">false</boolProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">20</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">5</stringProp>
-        <boolProp name="ThreadGroup.delayedStart">false</boolProp>
-        <boolProp name="ThreadGroup.scheduler">false</boolProp>
-        <stringProp name="ThreadGroup.duration"></stringProp>
-        <stringProp name="ThreadGroup.delay"></stringProp>
-        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
-        <!-- AUTHENTICATION ONCE ONLY -->
         <OnceOnlyController guiclass="OnceOnlyControllerGui" testclass="OnceOnlyController" testname="Login Once Only" enabled="true"/>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="M4: GET Login Page" enabled="true">
             <stringProp name="HTTPSampler.path">/admin/login</stringProp>
-            <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
             <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
           </HTTPSamplerProxy>
           <hashTree>
             <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract CSRF Token" enabled="true">
@@ -556,6 +551,7 @@ if (rawSnapshot != null) {
               <stringProp name="RegexExtractor.template">$1$</stringProp>
               <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
               <stringProp name="RegexExtractor.match_number">1</stringProp>
+              <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
             </RegexExtractor>
             <hashTree/>
             <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract Login Snapshot" enabled="true">
@@ -565,6 +561,7 @@ if (rawSnapshot != null) {
               <stringProp name="RegexExtractor.template">$1$</stringProp>
               <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
               <stringProp name="RegexExtractor.match_number">1</stringProp>
+              <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
             </RegexExtractor>
             <hashTree/>
             <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Clean Snapshot Groovy" enabled="true">
@@ -582,38 +579,38 @@ if (rawSnapshot != null) {
             <hashTree/>
           </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="M4: POST Livewire Login" enabled="true">
+            <stringProp name="HTTPSampler.path">/livewire/update</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{
-  &quot;_token&quot;: &quot;${csrf_token}&quot;,
-  &quot;components&quot;: [
-    {
-      &quot;snapshot&quot;: &quot;${login_snapshot}&quot;,
-      &quot;updates&quot;: {
-        &quot;data.email&quot;: &quot;${ADMIN_EMAIL}&quot;,
-        &quot;data.password&quot;: &quot;${ADMIN_PASSWORD}&quot;
-      },
-      &quot;calls&quot;: [
-        {
-          &quot;path&quot;: &quot;&quot;,
-          &quot;method&quot;: &quot;authenticate&quot;,
-          &quot;params&quot;: []
-        }
-      ]
-    }
-  ]
+                  <stringProp name="Argument.value">{&#xd;
+  &quot;_token&quot;: &quot;${csrf_token}&quot;,&#xd;
+  &quot;components&quot;: [&#xd;
+    {&#xd;
+      &quot;snapshot&quot;: &quot;${login_snapshot}&quot;,&#xd;
+      &quot;updates&quot;: {&#xd;
+        &quot;data.email&quot;: &quot;${ADMIN_EMAIL}&quot;,&#xd;
+        &quot;data.password&quot;: &quot;${ADMIN_PASSWORD}&quot;&#xd;
+      },&#xd;
+      &quot;calls&quot;: [&#xd;
+        {&#xd;
+          &quot;path&quot;: &quot;&quot;,&#xd;
+          &quot;method&quot;: &quot;authenticate&quot;,&#xd;
+          &quot;params&quot;: []&#xd;
+        }&#xd;
+      ]&#xd;
+    }&#xd;
+  ]&#xd;
 }</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
             </elementProp>
-            <stringProp name="HTTPSampler.path">/livewire/update</stringProp>
-            <stringProp name="HTTPSampler.method">POST</stringProp>
-            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           </HTTPSamplerProxy>
           <hashTree>
             <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Livewire Headers" enabled="true">
@@ -631,13 +628,15 @@ if (rawSnapshot != null) {
             <hashTree/>
           </hashTree>
         </hashTree>
-
-        <!-- CATEGORY CREATE FORM LOAD -->
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET Create Category Page" enabled="true">
           <stringProp name="HTTPSampler.path">/admin/categories/create</stringProp>
-          <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
         </HTTPSamplerProxy>
         <hashTree>
           <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract Create Category Snapshot" enabled="true">
@@ -647,6 +646,7 @@ if (rawSnapshot != null) {
             <stringProp name="RegexExtractor.template">$1$</stringProp>
             <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
             <stringProp name="RegexExtractor.match_number">1</stringProp>
+            <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
           </RegexExtractor>
           <hashTree/>
           <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="Clean Category Snapshot Groovy" enabled="true">
@@ -663,41 +663,39 @@ if (rawSnapshot != null) {
           </JSR223PostProcessor>
           <hashTree/>
         </hashTree>
-
-        <!-- SUBMIT CATEGORY CREATION -->
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST Livewire Create Category" enabled="true">
+          <stringProp name="HTTPSampler.path">/livewire/update</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">{
-  &quot;_token&quot;: &quot;${csrf_token}&quot;,
-  &quot;components&quot;: [
-    {
-      &quot;snapshot&quot;: &quot;${category_create_snapshot}&quot;,
-      &quot;updates&quot;: {
-        &quot;data.name&quot;: &quot;Kat-${__RandomString(8,abcdefghijklmnopqrstuvwxyz)}&quot;,
-        &quot;data.is_active&quot;: true
-      },
-      &quot;calls&quot;: [
-        {
-          &quot;path&quot;: &quot;&quot;,
-          &quot;method&quot;: &quot;create&quot;,
-          &quot;params&quot;: []
-        }
-      ]
-    }
-  ]
+                <stringProp name="Argument.value">{&#xd;
+  &quot;_token&quot;: &quot;${csrf_token}&quot;,&#xd;
+  &quot;components&quot;: [&#xd;
+    {&#xd;
+      &quot;snapshot&quot;: &quot;${category_create_snapshot}&quot;,&#xd;
+      &quot;updates&quot;: {&#xd;
+        &quot;data.name&quot;: &quot;Kat-${__RandomString(8,abcdefghijklmnopqrstuvwxyz)}&quot;,&#xd;
+        &quot;data.is_active&quot;: true&#xd;
+      },&#xd;
+      &quot;calls&quot;: [&#xd;
+        {&#xd;
+          &quot;path&quot;: &quot;&quot;,&#xd;
+          &quot;method&quot;: &quot;create&quot;,&#xd;
+          &quot;params&quot;: []&#xd;
+        }&#xd;
+      ]&#xd;
+    }&#xd;
+  ]&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
           </elementProp>
-          <stringProp name="HTTPSampler.path">/livewire/update</stringProp>
-          <stringProp name="HTTPSampler.method">POST</stringProp>
-          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
-          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
         </HTTPSamplerProxy>
         <hashTree>
           <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="Livewire Headers" enabled="true">
@@ -715,9 +713,7 @@ if (rawSnapshot != null) {
           <hashTree/>
         </hashTree>
       </hashTree>
-
-      <!-- GLOBAL LISTENERS (ENABLED FOR GUI MODE, SHOULD BE RUN WITH -l ARGUMENT IN CLI) -->
-      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
