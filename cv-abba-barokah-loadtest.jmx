@@ -121,7 +121,7 @@
             <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract CSRF Token" enabled="true">
               <stringProp name="RegexExtractor.useHeaders">false</stringProp>
               <stringProp name="RegexExtractor.refname">csrf_token</stringProp>
-              <stringProp name="RegexExtractor.regex">name=&quot;_token&quot;\s+value=&quot;([^&quot;]+)&quot;</stringProp>
+              <stringProp name="RegexExtractor.regex">name=&quot;csrf-token&quot;\s+content=&quot;([^&quot;]+)&quot;</stringProp>
               <stringProp name="RegexExtractor.template">$1$</stringProp>
               <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
               <stringProp name="RegexExtractor.match_number">1</stringProp>
@@ -241,7 +241,7 @@ if (rawSnapshot != null) {
             <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract CSRF Token" enabled="true">
               <stringProp name="RegexExtractor.useHeaders">false</stringProp>
               <stringProp name="RegexExtractor.refname">csrf_token</stringProp>
-              <stringProp name="RegexExtractor.regex">name=&quot;_token&quot;\s+value=&quot;([^&quot;]+)&quot;</stringProp>
+              <stringProp name="RegexExtractor.regex">name=&quot;csrf-token&quot;\s+content=&quot;([^&quot;]+)&quot;</stringProp>
               <stringProp name="RegexExtractor.template">$1$</stringProp>
               <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
               <stringProp name="RegexExtractor.match_number">1</stringProp>
@@ -427,7 +427,7 @@ if (rawSnapshot != null) {
             <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract CSRF Token" enabled="true">
               <stringProp name="RegexExtractor.useHeaders">false</stringProp>
               <stringProp name="RegexExtractor.refname">csrf_token</stringProp>
-              <stringProp name="RegexExtractor.regex">name=&quot;_token&quot;\s+value=&quot;([^&quot;]+)&quot;</stringProp>
+              <stringProp name="RegexExtractor.regex">name=&quot;csrf-token&quot;\s+content=&quot;([^&quot;]+)&quot;</stringProp>
               <stringProp name="RegexExtractor.template">$1$</stringProp>
               <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
               <stringProp name="RegexExtractor.match_number">1</stringProp>
@@ -547,7 +547,7 @@ if (rawSnapshot != null) {
             <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract CSRF Token" enabled="true">
               <stringProp name="RegexExtractor.useHeaders">false</stringProp>
               <stringProp name="RegexExtractor.refname">csrf_token</stringProp>
-              <stringProp name="RegexExtractor.regex">name=&quot;_token&quot;\s+value=&quot;([^&quot;]+)&quot;</stringProp>
+              <stringProp name="RegexExtractor.regex">name=&quot;csrf-token&quot;\s+content=&quot;([^&quot;]+)&quot;</stringProp>
               <stringProp name="RegexExtractor.template">$1$</stringProp>
               <stringProp name="RegexExtractor.default">NOT_FOUND</stringProp>
               <stringProp name="RegexExtractor.match_number">1</stringProp>
